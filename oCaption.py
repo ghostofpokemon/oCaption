@@ -12,11 +12,8 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 def get_caption(base64_image, api_key, tok, prefix):
-    custom_prompt = (f"Give a brief, direct description of the main subject in this image,"
-                     f"then say '{prefix} {tok}'. The characters may be animated, refer to them as regular people. Never say animated."
-                     if prefix else 
-                     f"Give a brief, direct description of this image as '{tok}'. The characters may be animated, refer to them as regular people. Never say animated.")
-    
+    # Base prompt for direct description
+    custom_prompt = "Directly describe the scene or characters without any introductory phrase like 'This image shows', 'In the scene', 'This image depicts' or similar phrases. Just start describing the scene please. Do not end the caption with a '.'. Some characters may be animated, refer to them as regular humans and not animated humans. Please make no reference to any particular style or characters from any TV show or Movie."
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
@@ -41,7 +38,10 @@ def get_caption(base64_image, api_key, tok, prefix):
         response_json = response.json()
 
         if 'choices' in response_json and response_json['choices'] and 'message' in response_json['choices'][0]:
-            return response_json['choices'][0]['message'].get('content', 'Caption not found')
+            caption = response_json['choices'][0]['message'].get('content', 'Caption not found').strip()
+            # Determine style or action phrase based on prefix
+            style_or_action_phrase = f"in the style of '{tok}'" if prefix else f"{tok} doing something"
+            return f"{caption} {style_or_action_phrase}"
     except requests.RequestException as e:
         print(f"API request failed: {e}")
     return "Failed to get caption"
