@@ -1,57 +1,68 @@
-# Image Captioning Script with OpenAI GPT-4
+# Image Captioning Tool with OpenAI GPT-4
 
-This Python script processes a collection of images (either from a zip file or a folder) and generates captions using OpenAI's GPT-4 Vision API. The captions are generated in a specific format, either describing the content of the image directly or in a specified style (e.g., "in the style of Family Guy").
+This Python tool is designed to generate captions for a set of images, utilizing the advanced capabilities of OpenAI's GPT-4 Vision API. It can handle image collections either from a ZIP file or a directory. The tool offers flexibility in captioning, providing options to describe images directly or in a creative style, like "in the style of Family Guy."
 
-## Features
+## Key Features
 
-- Process images from a zip file or a directory.
-- Generate captions using OpenAI's GPT-4 Vision API.
-- Customizable caption format, including the ability to specify a style (e.g., "in the style of TOK").
-- Output captions are saved to a CSV file.
+- Processes images from ZIP files or directories.
+- Utilizes OpenAI's GPT-4 Vision API for caption generation.
+- Supports custom caption formats, including style-based descriptions (e.g., "in the style of TOK").
+- Captions are conveniently saved in a CSV file for easy access and reference.
 
-## Requirements
+## System Requirements
 
 - Python 3
-- OpenAI API key with access to GPT-4 Vision API
-- Required Python packages: `requests`, `imgcat`
+- An active OpenAI API key with GPT-4 Vision API access.
+- Necessary Python libraries: `requests`, `imgcat`.
 
-## Installation
+## Setup Instructions
 
-1. Clone the repository:
+1. Clone the GitHub repository:
 
-git clone https://github.com/ghostofpokemon/oCaption.git
+   ```
+   git clone https://github.com/ghostofpokemon/oCaption.git
+   ```
 
+2. Change to the tool's directory:
 
-2. Navigate to the project directory:
+   ```
+   cd oCaption
+   ```
 
-cd image-captioning
+3. Install the required Python dependencies:
 
-3. Install the required Python packages:
+   ```
+   pip install requests imgcat
+   ```
 
-pip install requests imgcat
+## How to Use
 
+Set your OpenAI API key as an environment variable:
 
-## Usage
+```
+export OPENAI_API_KEY="Your-API-Key-Here"
+```
 
-Run the script using Python:
+Launch the tool with Python:
 
-python3 zipCaption.py
+```
+python3 oCaption.py
+```
 
+Follow the prompts to input the path to your image folder or ZIP file, specify the TOK value (such as "TOK" or "Family Guy"), and choose a caption prefix if needed.
 
-When prompted, enter the path to the zip file or image folder, the TOK value (e.g., "TOK", "Family Guy"), and the caption prefix if needed.
+## Output Details
 
-## Output
+The tool generates detailed captions for each processed image, saving them in a `caption.csv` file located in the current working directory. The captions follow the format "a photo of [subject]" or "in the style of [TOK]" based on your preference.
 
-The script will generate captions for each image and save them in a file named `caption.csv` in the current directory. The format of the captions is either "a photo of [subject]" or "in the style of [TOK]".
+## Contributing to the Project
 
-## Contributing
+We welcome contributions! To propose changes, please use the standard GitHub pull request process.
 
-Contributions to the project are welcome. Please follow the standard GitHub pull request process to propose changes.
+## License Information
 
-## License
+This tool is distributed under the [MIT License](LICENSE).
 
-[MIT License](LICENSE)
+## Support and Contact
 
-## Contact
-
-For any questions or comments, please open an issue in the GitHub repository.
+For queries or feedback, feel free to open an issue in the GitHub repository.
