@@ -9,6 +9,8 @@ This Python tool is designed to generate captions for a set of images, utilizing
 - Supports custom caption formats, including style-based descriptions (e.g., "in the style of TOK").
 - Captions are conveniently saved in a CSV file for easy access and reference.
 
+![Example Image](https://1800nick.com/cap.jpg)
+
 ## System Requirements
 
 - Python 3
