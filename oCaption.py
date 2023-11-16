@@ -39,7 +39,6 @@ def get_caption(base64_image, api_key, tok, prefix):
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
     response_json = response.json()
 
-    print("API Response:", response_json)
 
     if 'choices' in response_json and len(response_json['choices']) > 0 and 'message' in response_json['choices'][0]:
         return response_json['choices'][0]['message'].get('content', 'Caption not found')
