@@ -13,7 +13,7 @@ def encode_image(image_path):
 
 def get_caption(base64_image, api_key, tok, prefix):
     # Base prompt for direct description
-    custom_prompt = "Directly describe the scene or characters without any introductory phrase like 'This image shows', 'In the scene', 'This image depicts' or similar phrases. Just start describing the scene please. Do not end the caption with a '.'. Some characters may be animated, refer to them as regular humans and not animated humans. Please make no reference to any particular style or characters from any TV show or Movie."
+    custom_prompt = "Directly describe with brevity and as brief as possible the scene or characters without any introductory phrase like 'This image shows', 'In the scene', 'This image depicts' or similar phrases. Just start describing the scene please. Do not end the caption with a '.'. Some characters may be animated, refer to them as regular humans and not animated humans. Please make no reference to any particular style or characters from any TV show or Movie. Good examples: a cat on a windowsill, a photo of smiling cactus in an office, a man and baby sitting by a window, a photo of wheel on a car,"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
@@ -40,7 +40,9 @@ def get_caption(base64_image, api_key, tok, prefix):
         if 'choices' in response_json and response_json['choices'] and 'message' in response_json['choices'][0]:
             caption = response_json['choices'][0]['message'].get('content', 'Caption not found').strip()
             # Determine style or action phrase based on prefix
-            style_or_action_phrase = f"in the style of '{tok}'" if prefix else f"{tok} doing something"
+            # Remove commas and double quotes from the caption
+            caption = caption.replace(',', '').replace('"', '')
+            style_or_action_phrase = f"in the style of {tok}" if prefix else f"{tok}"
             return f"{caption} {style_or_action_phrase}"
     except requests.RequestException as e:
         print(f"API request failed: {e}")
@@ -64,7 +66,7 @@ def process_images(input_path, output_csv, api_key, tok, prefix):
                     caption = get_caption(base64_image, api_key, tok, prefix)
                     imgcat(open(image_path, 'rb').read())
                     print(f"Caption: {caption}\n")
-                    writer.writerow([file_name, caption])
+                    writer.writerow([caption, file_name])
 
 def main():
     input_path = input("Enter the path to the zip file or image folder: ")
