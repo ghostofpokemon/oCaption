@@ -59,6 +59,7 @@ def process_images(input_path, output_csv, api_key, tok, prefix):
 
         with open(output_csv, mode='w', newline='') as file:
             writer = csv.writer(file)
+            writer.writerow(['caption', 'image_file'])  # Header row
             for root, _, files in os.walk(directory_to_process):
                 for file_name in filter(lambda f: f.lower().endswith(('.png', '.jpg', '.jpeg')), files):
                     image_path = os.path.join(root, file_name)
